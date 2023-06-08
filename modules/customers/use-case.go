@@ -1,11 +1,23 @@
 package customers
 
 type Usecase struct {
-	repo *Repository
+	repo RepositoryInterface
 }
 
-func NewUsecase(repo *Repository) *Usecase {
-	return &Usecase{
+type UsecaseInterface interface {
+	Create(customers *Customers) error
+	Read() ([]Customers, error)
+	ReadByID(id any) (Customers, error)
+	Save(customers *Customers) error
+	FindAll() ([]Customers, error)
+	// FindById(id int) (Customers, error)	
+	UpdateByID(customers *Customers) error
+	DeleteByID(customers *Customers) error
+	getByEmail(email string) (Customers, error)
+}
+
+func NewUsecase(repo RepositoryInterface) UsecaseInterface {
+	return Usecase{
 		repo: repo,
 	}
 }
@@ -29,11 +41,6 @@ func (u Usecase) Save(customers *Customers) error {
 func (u Usecase) FindAll() ([]Customers, error) {
 	return u.repo.FindAll()
 }
-
-// FindById is a function to find a customer by id
-/*func (u Usecase) FindById(id int) (Customers, error) {
-	return u.repo.FindById(strconv.Itoa(id))
-}*/
 
 func (u Usecase) UpdateByID(customers *Customers) error {
 	return u.repo.UpdateByID(customers)

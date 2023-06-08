@@ -35,6 +35,8 @@ func main() {
 	r.POST("/register", accountHandler.Create)
 	r.POST("/login", accountHandler.Login)
 	r.GET("/account", accountHandler.ReadByUsername)
+	// r.GET("/accounts", accountHandler.FindAll)
+	// r.PUT("/account/:id", accountHandler.Update)
 
 	err = r.Run(":8080")
 	if err != nil {

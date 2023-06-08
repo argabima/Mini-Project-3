@@ -7,6 +7,10 @@ import (
 type AccountRepoInterface interface {
 	Save(account *Actors) error
 	FindByUsername(username string) (Actors, error)
+	// FindAll() ([]Actors, error)
+	// Update(actor *Actors) error
+	// Delete(actor *Actors) error
+	// FindByID(id any) (Actors, error)
 }
 
 type accountRepo struct {
@@ -21,9 +25,16 @@ func (r accountRepo) Save(account *Actors) error {
 	return r.db.Create(account).Error
 }
 
-// func (r accountRepo) UpdateByID(id int, actor *Actors) error {
-// 	return r.db.Model(&Actors{}).Where("id = ?", id).Updates(actor).Error
-// }
+func (r accountRepo) FindAll() ([]Actors, error) {
+	var actors []Actors
+
+	err := r.db.Find(&actors).Error
+	if err != nil {
+		return actors, err
+	}
+
+	return actors, nil
+}
 
 func (r accountRepo) FindByUsername(username string) (Actors, error) {
 	var actor Actors
@@ -35,3 +46,21 @@ func (r accountRepo) FindByUsername(username string) (Actors, error) {
 
 	return actor, nil
 }
+
+/*
+func (r accountRepo) Update(actor *Actors) error {
+	return r.db.Save(actor).Error
+}
+
+func (r accountRepo) Delete(actor *Actors) error {
+	return r.db.Delete(actor).Error
+}
+
+func (r accountRepo) FindByID(id any) (Actors, error) {
+	var actor Actors
+	err := r.db.First(&actor, id).Error
+
+	return actor, err
+}
+
+*/

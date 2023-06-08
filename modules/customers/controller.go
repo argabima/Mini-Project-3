@@ -1,11 +1,20 @@
 package customers
 
 type Controller struct {
-	usecase *Usecase
+	usecase UsecaseInterface
 }
 
-func NewController(usecase *Usecase) *Controller {
-	return &Controller{
+type ControllerInterface interface {
+	Create(req *CreateRequest) (*CreateResponse, error)
+	Read() (*ReadResponse, error)
+	ReadByID(id any) (*ReadByIDResponse, error)
+	UpdateByID(req *CreateRequest, id any) (*CreateResponse, error)
+	DeleteByID(id any) (*DeleteResponse, error)
+	getByEmail(email string) (*getByEmailResponse, error)
+}
+
+func NewController(usecase UsecaseInterface) ControllerInterface {
+	return Controller{
 		usecase: usecase,
 	}
 }

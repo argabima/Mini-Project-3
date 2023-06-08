@@ -6,7 +6,16 @@ type Repository struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *Repository {
+type RepositoryInterface interface {
+	Save(customers *Customers) error
+	FindAll() ([]Customers, error)
+	FindById(id any) (Customers, error)
+	UpdateByID(customers *Customers) error
+	DeleteByID(customers *Customers) error
+	FindByEmail(email string) (Customers, error)
+}
+
+func NewRepository(db *gorm.DB) RepositoryInterface {
 	return &Repository{db}
 }
 

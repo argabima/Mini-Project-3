@@ -25,6 +25,7 @@ type AccountHandlerInterface interface {
 	Create(c *gin.Context)
 	Login(c *gin.Context)
 	ReadByUsername(c *gin.Context)
+	// Update(c *gin.Context)
 }
 
 func NewAccountRequestHandler(ctrl AccountControllerInterface) AccountHandlerInterface {
@@ -98,3 +99,50 @@ func (h RequestHandler) ReadByUsername(c *gin.Context) {
 
 	c.JSON(http.StatusOK, res)
 }
+
+// func (h RequestHandler) Update(c *gin.Context) {
+// 	var req CreateRequest
+// 	id := c.Param("id")
+
+// 	role, isErr := c.Get("role")
+// 	if isErr != true {
+// 		c.JSON(http.StatusBadRequest, ErrorResponse{"Role tidak ditemukan"})
+// 		fmt.Println("role : ", isErr, role)
+// 		return
+// 	}
+
+// 	fmt.Println("role   :   ", role)
+// 	if role != "2" {
+// 		c.JSON(http.StatusNonAuthoritativeInfo, ErrorResponse{"You aren't not super admin"})
+// 		return
+// 	}
+
+// 	if id == "" {
+// 		c.JSON(http.StatusNotFound, ErrorResponse{"Param not found"})
+// 		return
+// 	}
+	
+// 	if err := c.BindJSON(&req); err != nil {
+// 		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+// 		return
+// 	}
+
+// 	res, err := h.ctrl.Update(&req, id)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, ErrorResponse{Error: err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, res)
+// }
+
+// func (h RequestHandler) FindAll(c *gin.Context) {
+// 	res, err := h.ctrl.FindAll()
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, ErrorResponse{Error: err.Error()})
+// 		return
+// 	}
+
+// 	c.JSON(http.StatusOK, res)
+// }
+
