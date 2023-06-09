@@ -12,7 +12,7 @@ import (
 )
 
 func initDB() (*gorm.DB, error) {
-	dsn := "root:12345@tcp(localhost:3306)/crm_service?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:password@tcp(db:3306)/crm_service?charset=utf8mb4&parseTime=True&loc=Local"
 	return gorm.Open(mysql.Open(dsn), &gorm.Config{})
 }
 

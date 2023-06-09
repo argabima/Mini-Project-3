@@ -6,6 +6,6 @@ COPY . .
 
 RUN go mod download
 
-RUN go build -o crm_service
+RUN go build -o miniproject 
 
-CMD ["./Mini Project"]
+CMD ["./miniproject"]

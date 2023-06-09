@@ -9,7 +9,6 @@ import (
 )
 
 type response struct {
-	Success string `json:"success"`
 	Message string `json:"message"`
 }
 
@@ -26,7 +25,7 @@ func Auth(c *gin.Context) {
 		return []byte("secret-key"), nil
 	})
 	if err != nil {
-		c.JSON(401, response{Success: "false", Message: "token tidak valid"})
+		c.JSON(401, response{Message: "token tidak valid"})
 		c.Abort()
 		return
 	}
@@ -34,7 +33,7 @@ func Auth(c *gin.Context) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		c.Set("role", claims["sub"])
 	} else {
-		c.JSON(401, response{Success: "false", Message: "token 2 tidak valid"})
+		c.JSON(401, response{Message: "token 2 tidak valid"})
 		c.Abort()
 		return
 	}
