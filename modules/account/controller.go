@@ -14,9 +14,9 @@ type AccountControllerInterface interface {
 	//ComparePassword(hashedPassword string, password string) error
 	ReadByUsername(username string) (*ReadByUsernameResponse, error)
 	Login(req *LoginRequest) (*LoginResponse, error)
-	// Update(req *CreateRequest, id any) (*CreateResponse, error)
-	// Delete(id any) (*CreateResponse, error)
-	// FindAll() (*GetAll, error)
+	Update(req *CreateRequest, id any) (*CreateResponse, error)
+	//Delete(id any) (*CreateResponse, error)
+	FindAll() (*GetAll, error)
 }
 type accountController struct {
 	usecase AccountUsecaseInterface
@@ -163,16 +163,18 @@ func (c accountController) Login(req *LoginRequest) (*LoginResponse, error) {
 	}
 	return res, nil
 }
-/*
+
 func (c accountController) Update(req *CreateRequest, id any) (*CreateResponse, error) {
 	
 	data, err := c.usecase.FindByID(id)
+	
 
 	if err != nil {
 		return nil, err
 	}
 	
 	account := Actors{
+		ID: 	 data.ID,
 		Username: data.Username,
 		Password: data.Password,
 		Role_id:  data.Role_id,
@@ -209,42 +211,42 @@ func (c accountController) Update(req *CreateRequest, id any) (*CreateResponse, 
 	return res, nil
 }
 
-func (c accountController) Delete(id any) (*CreateResponse, error) {
-	data, err := c.usecase.FindByID(id)
+// func (c accountController) Delete(id any) (*CreateResponse, error) {
+// 	data, err := c.usecase.FindByID(id)
 
-	if err != nil {
-		return nil, err
-	}
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	account := Actors{
-		Username: data.Username,
-		Password: data.Password,
-		Role_id:  data.Role_id,
-		Verified: data.Verified,
-		Active:   data.Active,
-	}
+// 	account := Actors{
+// 		Username: data.Username,
+// 		Password: data.Password,
+// 		Role_id:  data.Role_id,
+// 		Verified: data.Verified,
+// 		Active:   data.Active,
+// 	}
 
-	createdAt := data.CreatedAt
-	account.CreatedAt = createdAt
+// 	createdAt := data.CreatedAt
+// 	account.CreatedAt = createdAt
 
-	err = c.usecase.Delete(&account)
-	if err != nil {
-		return nil, err
-	}
+// 	err = c.usecase.Delete(&account)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	res := &CreateResponse{
-		Message: "Success",
-		Data: AccountItemResponse{
-			ID:       int(account.ID),
-			Username: account.Username,
-			Password: account.Password,
-			Role_id:  int(account.Role_id),
-			Verified: account.Verified,
-			Active:   account.Active,
-		},
-	}
-	return res, nil
-}
+// 	res := &CreateResponse{
+// 		Message: "Success",
+// 		Data: AccountItemResponse{
+// 			ID:       int(account.ID),
+// 			Username: account.Username,
+// 			Password: account.Password,
+// 			Role_id:  int(account.Role_id),
+// 			Verified: account.Verified,
+// 			Active:   account.Active,
+// 		},
+// 	}
+// 	return res, nil
+// }
 
 type GetAll struct {
 	Message string              `json:"message"`
@@ -271,4 +273,3 @@ func (c accountController) FindAll() (*GetAll, error) {
 
 	return res, nil
 }
-*/

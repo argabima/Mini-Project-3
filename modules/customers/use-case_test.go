@@ -240,7 +240,7 @@ func TestUsecase_ReadByID(t *testing.T) {
 			u := Usecase{
 				repo: tt.fields.repo,
 			}
-			//tt.fields.repo.(*MockRepositoryInterface).EXPECT().ReadByID(tt.args.id).Return(tt.want, nil)
+			tt.fields.repo.(*MockRepositoryInterface).EXPECT().FindById(tt.args.id).Return(tt.want, nil)
 			got, err := u.ReadByID(tt.args.id)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ReadByID() error = %v, wantErr %v", err, tt.wantErr)
@@ -379,7 +379,7 @@ func TestUsecase_getByEmail(t *testing.T) {
 			u := Usecase{
 				repo: tt.fields.repo,
 			}
-			//tt.fields.repo.(*MockRepositoryInterface).EXPECT().getByEmail(tt.args.email).Return(tt.want, nil)
+			tt.fields.repo.(*MockRepositoryInterface).EXPECT().FindByEmail(tt.args.email).Return(tt.want, nil)
 			got, err := u.getByEmail(tt.args.email)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("getByEmail() error = %v, wantErr %v", err, tt.wantErr)
